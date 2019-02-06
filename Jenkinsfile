@@ -39,7 +39,7 @@ try {
           failedNewAll: '0'
         ])
         */
-        if (env.BRANCH_NAME == 'master') {
+        if (env.BRANCH_NAME == '18.10.x') {
           withSonarQubeEnv('SonarQube') {
             sh './centreon-build/jobs/awie/18.10/mon-awie-analysis.sh'
           }
@@ -96,7 +96,7 @@ try {
     }
   }
 
-  if (env.BRANCH_NAME == 'master') {
+  if (env.BRANCH_NAME == '18.10.x') {
     stage('Delivery') {
       node {
         sh 'setup_centreon_build.sh'
@@ -108,7 +108,7 @@ try {
     }
   }
 } catch(e) {
-  if (env.BRANCH_NAME == 'master') {
+  if (env.BRANCH_NAME == '18.10.x') {
     slackSend channel: "#monitoring-metrology", color: "#F30031", message: "*FAILURE*: `CENTREON AWIE` <${env.BUILD_URL}|build #${env.BUILD_NUMBER}> on branch ${env.BRANCH_NAME}\n*COMMIT*: <https://github.com/centreon/centreon-awie/commit/${source.COMMIT}|here> by ${source.COMMITTER}\n*INFO*: ${e}"
   }
 }
